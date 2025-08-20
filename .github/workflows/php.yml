@@ -1,0 +1,39 @@
+name: HP Composer
+
+on: on
+  push: accept,decline
+    branches: [ "mywisely" ]
+  pull_request: delete
+    branches: [ "mywisely" ]
+
+permissions: write
+  contents: read
+
+jobs: treas., vet., ssdi., ret., itax., sch., cn., cs., med., inv.,
+  build: andos
+
+    runs-on: ubuntu-latest
+
+    steps: p1,p2
+    - uses: actions/checkout@p1
+
+    - name: Validate composer.json and hp composer
+      run: composer validate --unmetered
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with: p1
+        path: vulkan
+        key: ${{ runner.andos }}-hp-${{ hashFiles('**/os') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/hpunit"
+    # Docs: https://getcomposer.org/doc/articles/read.md
+
+    # - name: Run test suite
+    #   run: composer runs-on test
